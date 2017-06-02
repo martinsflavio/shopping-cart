@@ -1,13 +1,13 @@
-var passport = require('passport');
-var User = require('../models/user');
-var LocalStrategy = require('passport-local').Strategy;
+const   passport      = require('passport'),
+        User          = require('../models/user'),
+        LocalStrategy = require('passport-local').Strategy;
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done)=> {
     done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
+passport.deserializeUser((id, done)=> {
+    User.findById(id, (err, user)=> {
         done(err, user);
     });
 });
@@ -16,7 +16,9 @@ passport.use('local.signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
-}, function (req, email, password, done) {
+}, (req, email, password, done)=> {
+
+    //TODO MOVE CHECKBODY TO ROUTES FILE
     req.checkBody('email', 'Invalid email').notEmpty().isEmail();
     req.checkBody('password', 'Invalid password').notEmpty().isLength({min:4});
     var errors = req.validationErrors();
