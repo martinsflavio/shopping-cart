@@ -1,1 +1,3 @@
-# shopping-cart
+# Shopping Cart
+## NodeJs, Express, MongoDB, Handlebars
+
